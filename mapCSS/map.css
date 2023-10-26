@@ -1,0 +1,36 @@
+.body {
+    margin:0;
+    padding:0;
+    background-color: azure;
+
+}
+.container{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 100px;
+    padding: 10px;  
+
+}
+.map{
+    width:100%; 
+    height:400px;
+}
+.boardinghouse{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap:10px;
+    padding:10px;
+    background-color: azure;
+}
+.boardinghouse div img{
+    width:100%;
+}
+.boardinghouse div img:hover{
+    opacity: 0.5;
+}
+p {
+    text-align:right;
+    margin-right:10px;
+    font-size:20px;
+
+}
