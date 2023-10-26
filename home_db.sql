@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 21, 2022 at 09:26 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 26, 2023 at 05:11 PM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,18 +27,19 @@ SET time_zone = "+00:00";
 -- Table structure for table `admins`
 --
 
-CREATE TABLE `admins` (
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE IF NOT EXISTS `admins` (
   `id` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `name`, `password`) VALUES
-('BcjKNX58e4x7bIqIvxG7', 'admin', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2');
+('BcjKNX58e4x7bIqIvxG7', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997');
 
 -- --------------------------------------------------------
 
@@ -46,13 +47,14 @@ INSERT INTO `admins` (`id`, `name`, `password`) VALUES
 -- Table structure for table `messages`
 --
 
-CREATE TABLE `messages` (
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
   `id` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `number` varchar(10) NOT NULL,
   `message` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -60,7 +62,8 @@ CREATE TABLE `messages` (
 -- Table structure for table `property`
 --
 
-CREATE TABLE `property` (
+DROP TABLE IF EXISTS `property`;
+CREATE TABLE IF NOT EXISTS `property` (
   `id` varchar(20) NOT NULL,
   `user_id` varchar(20) NOT NULL,
   `property_name` varchar(50) NOT NULL,
@@ -98,8 +101,30 @@ CREATE TABLE `property` (
   `image_04` varchar(50) NOT NULL,
   `image_05` varchar(50) NOT NULL,
   `description` varchar(1000) NOT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `renters`
+--
+
+DROP TABLE IF EXISTS `renters`;
+CREATE TABLE IF NOT EXISTS `renters` (
+  `id` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `number` varchar(10) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `renters`
+--
+
+INSERT INTO `renters` (`id`, `name`, `number`, `email`, `password`) VALUES
+('0Qk9wgxOEenKMQ4peDQP', 'Renter', '0998765432', 'renter@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b');
 
 -- --------------------------------------------------------
 
@@ -107,13 +132,14 @@ CREATE TABLE `property` (
 -- Table structure for table `requests`
 --
 
-CREATE TABLE `requests` (
+DROP TABLE IF EXISTS `requests`;
+CREATE TABLE IF NOT EXISTS `requests` (
   `id` varchar(20) NOT NULL,
   `property_id` varchar(20) NOT NULL,
   `sender` varchar(20) NOT NULL,
   `receiver` varchar(20) NOT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -121,11 +147,12 @@ CREATE TABLE `requests` (
 -- Table structure for table `saved`
 --
 
-CREATE TABLE `saved` (
+DROP TABLE IF EXISTS `saved`;
+CREATE TABLE IF NOT EXISTS `saved` (
   `id` varchar(20) NOT NULL,
   `property_id` varchar(20) NOT NULL,
   `user_id` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -133,13 +160,21 @@ CREATE TABLE `saved` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `id` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `number` varchar(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `number`, `email`, `password`) VALUES
+('fKGM7HUgKqacGCfqRTmZ', 'Sample', '0912345678', 'example@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
