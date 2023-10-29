@@ -126,7 +126,7 @@ if(isset($_POST['delete'])){
          <a href="update_property.php?get_id=<?= $property_id; ?>" class="btn">update</a>
          <input type="submit" name="delete" value="delete" class="btn" onclick="return confirm('delete this listing?');">
       </div>
-      <a href="view_property.php?get_id=<?= $property_id; ?>" class="btn">view property</a>
+     
    </form>
    <?php
          }

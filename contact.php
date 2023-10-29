@@ -52,7 +52,7 @@ if(isset($_POST['send'])){
 </head>
 <body>
    
-<?php include 'components/user_header.php'; ?>
+<?php include 'components/home_header.php'; ?>
 
 <!-- contact section starts  -->
 

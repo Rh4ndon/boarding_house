@@ -47,11 +47,6 @@ if(isset($_COOKIE['user_id'])){
       <a href="update.php" class="btn">update profile</a>
       </div>
 
-      <div class="box">
-         <h3>filter search</h3>
-         <p>search boarding house</p>
-         <a href="search.php" class="btn">search now</a>
-      </div>
 
       <div class="box">
       <?php
@@ -76,26 +71,13 @@ if(isset($_COOKIE['user_id'])){
       </div>
 
       <div class="box">
-      <?php
-        $count_requests_sent = $conn->prepare("SELECT * FROM `requests` WHERE sender = ?");
-        $count_requests_sent->execute([$user_id]);
-        $total_requests_sent = $count_requests_sent->rowCount();
-      ?>
-      <h3><?= $total_requests_sent; ?></h3>
-      <p>requests sent</p>
-      <a href="listings.php" class="btn">view boardinghouse</a>
+      <h3>approved</h3>
+      <p>list of approved renters</p>
+      <a href="approved.php" class="btn">Approved Renters</a>
       </div>
+      
 
-      <div class="box">
-      <?php
-        $count_saved_properties = $conn->prepare("SELECT * FROM `saved` WHERE user_id = ?");
-        $count_saved_properties->execute([$user_id]);
-        $total_saved_properties = $count_saved_properties->rowCount();
-      ?>
-      <h3><?= $total_saved_properties; ?></h3>
-      <p>properties saved</p>
-      <a href="saved.php" class="btn">view saved properties</a>
-      </div>
+    
 
    </div>
 

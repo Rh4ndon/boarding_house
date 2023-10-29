@@ -32,7 +32,7 @@ include 'components/save_send.php';
 </head>
 <body>
    
-<?php include 'components/renter_header.php'; ?>
+<?php include 'components/user_header.php'; ?>
 <section class="map">
 
    <h1 class="heading">Boarding House map and Routes</h1>

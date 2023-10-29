@@ -27,6 +27,74 @@ if(isset($_POST['delete'])){
 
 }
 
+if(isset($_POST['payment'])){
+
+   $id = create_unique_id();
+   $owner = $_POST['owner'];
+   $owner = filter_var($owner, FILTER_SANITIZE_STRING);
+   $renter = $_POST['renter'];
+   $renter = filter_var($renter, FILTER_SANITIZE_STRING);
+   $property = $_POST['property'];
+   $property = filter_var($property, FILTER_SANITIZE_STRING);
+
+   date_default_timezone_set('Asia/Manila');
+	$date = date('m-d-y');
+
+   $send_payment = $conn->prepare("SELECT * FROM `payments` WHERE property_id = ? AND renter = ? AND owner = ?");
+   $send_payment->execute([$property, $renter, $owner]);
+
+   if(($send_payment->rowCount() > 0)){
+      $warning_msg[] = 'payment request already sent!';
+   }else{
+      $send_request = $conn->prepare("INSERT INTO `payments`(id, property_id, renter, owner, img_src, date_request) VALUES(?,?,?,?,?,?)");
+      $send_request->execute([$id, $property, $renter, $owner, '0', $date]);
+      $success_msg[] = 'payment request sent successfully!';
+   }
+
+
+
+   
+
+}
+
+if(isset($_POST['approve'])){
+
+   $id = create_unique_id();
+   $owner = $_POST['owner'];
+   $owner = filter_var($owner, FILTER_SANITIZE_STRING);
+   $renter = $_POST['renter'];
+   $renter = filter_var($renter, FILTER_SANITIZE_STRING);
+   $property = $_POST['property'];
+   $property = filter_var($property, FILTER_SANITIZE_STRING);
+
+   $delete_id = $_POST['request_id'];
+   $delete_pay_id = $_POST['pay'];
+
+   $send_payment = $conn->prepare("SELECT * FROM `approve` WHERE property_id = ? AND renter = ? AND owner = ?");
+   $send_payment->execute([$property, $renter, $owner]);
+
+   if(($send_payment->rowCount() > 0)){
+      
+      $warning_msg[] = 'renter is already approved!';
+   }else{
+      $send_request = $conn->prepare("INSERT INTO `approve`(id, property_id, renter, owner, ratings) VALUES(?,?,?,?,?)");
+      $send_request->execute([$id, $property, $renter, $owner, 'none yet!']);
+
+      $delete_request = $conn->prepare("DELETE FROM `requests` WHERE id = ?");
+      $delete_request->execute([$delete_id]);
+
+      $delete_payment = $conn->prepare("DELETE FROM `payments` WHERE id = ?");
+      $delete_payment->execute([$delete_pay_id]);
+
+      $success_msg[] = 'renter was approved successfully!';
+   }
+
+
+
+   
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +128,7 @@ if(isset($_POST['delete'])){
       if($select_requests->rowCount() > 0){
          while($fetch_request = $select_requests->fetch(PDO::FETCH_ASSOC)){
 
-        $select_sender = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+        $select_sender = $conn->prepare("SELECT * FROM `renters` WHERE id = ?");
         $select_sender->execute([$fetch_request['sender']]);
         $fetch_sender = $select_sender->fetch(PDO::FETCH_ASSOC);
 
@@ -75,10 +143,46 @@ if(isset($_POST['delete'])){
       <p>enquiry for : <span><?= $fetch_property['property_name']; ?></span></p>
       <form action="" method="POST">
          <input type="hidden" name="request_id" value="<?= $fetch_request['id']; ?>">
+         <input type="hidden" name="property" value="<?= $fetch_request['property_id']; ?>">
+         <input type="hidden" name="renter" value="<?= $fetch_request['sender']; ?>">
+         <input type="hidden" name="owner" value="<?= $fetch_request['receiver']; ?>">
+
+         
+         <input type="submit" value="request payment" name="payment" class="btn">
+         <input type="submit" value="approve" name="approve" class="btn">
          <input type="submit" value="delete request" class="btn" onclick="return confirm('remove this request?');" name="delete">
-         <a href="view_property.php?get_id=<?= $fetch_property['id']; ?>" class="btn">view property</a>
-      </form>
+         
+ 
    </div>
+   
+   
+   <?php
+   $p_id = $fetch_request['property_id'];
+   $rent = $fetch_request['sender'];
+   $own = $fetch_request['receiver'];
+
+   $payment_requests = $conn->prepare("SELECT * FROM `payments` WHERE property_id = ? and renter= ? and owner = ?");
+   $payment_requests->execute([$p_id, $rent, $own]);
+
+   if($payment_requests->rowCount() > 0){
+      $fetch_payment = $payment_requests->fetch(PDO::FETCH_ASSOC);
+   ?>
+   <div class="box">
+   <p>Proof of Payment</p>
+   <img src="<?= $fetch_payment['img_src']; ?>" alt="">
+
+   <input type="hidden" name="pay" value="<?= $fetch_payment['id']; ?>">
+   </box>
+   
+   </form>
+   <?php
+   }
+   
+   
+   
+   ?>
+   
+   
    <?php
     }
    }else{

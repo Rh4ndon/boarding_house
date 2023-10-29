@@ -63,7 +63,7 @@ if(isset($_POST['post'])){
       $parking_area = 'no';
    }
    if(isset($_POST['school_area'])){
-      $school_area = $_POST['market_area'];
+      $school_area = $_POST['school_area'];
       $school_area = filter_var($school_area, FILTER_SANITIZE_STRING);
    }else{
       $school_area = 'no';
@@ -154,7 +154,7 @@ if(isset($_POST['post'])){
    }else{
       $insert_property = $conn->prepare("INSERT INTO `property`(id, user_id, property_name, address, price, type, offer, status, rooms, deposite, bedroom, bathroom, availability, wifi_connection, water_supply, electricity, parking_area, school_area, image_01, image_02, image_03, image_04, image_05, description) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"); 
       $insert_property->execute([$id, $user_id, $property_name, $address, $price, $type, $offer, $status, $rooms, $deposite, $bedroom, $bathroom, $availability, $wifi_connection, $water_supply, $electricity, $parking_area, $school_area, $rename_image_01, $rename_image_02, $rename_image_03, $rename_image_04, $rename_image_05, $description]);
-      move_uploaded_file($image_01_tmp_name, $image_01_folder);
+      move_uploaded_file($image_01_tmp_name, $rename_image_01);
       $success_msg[] = 'property posted successfully!';
    }
 

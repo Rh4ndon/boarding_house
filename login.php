@@ -25,10 +25,10 @@ if(isset($_POST['submit'])){
 
    if($select_users->rowCount() > 0){
       setcookie('user_id', $row['id'], time() + 60*60*24*30, '/');
-      header('location:home.php');
+      header('location:dashboard.php');
    }else if ($select_renters->rowCount() > 0){
-      setcookie('user_id', $row['id'], time() + 60*60*24*30, '/');
-      header('location:a_map_renter.php');
+      setcookie('user_id', $row_renters['id'], time() + 60*60*24*30, '/');
+      header('location:dashboard_renter.php');
    }else{
       $warning_msg[] = 'Incorrect username or password!';
    }
@@ -54,7 +54,7 @@ if(isset($_POST['submit'])){
 </head>
 <body>
    
-<?php include 'components/user_header.php'; ?>
+<?php include 'components/home_header.php'; ?>
 
 <!-- login section starts  -->
 

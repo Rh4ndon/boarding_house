@@ -29,7 +29,7 @@ include 'components/save_send.php';
 </head>
 <body>
    
-<?php include 'components/user_header.php'; ?>
+<?php include 'components/home_header.php'; ?>
 
 <!-- listings section starts  -->      
 
@@ -114,7 +114,7 @@ include 'components/save_send.php';
             </div>
             <div class="flex-btn">
                <a href="view_property.php?get_id=<?= $fetch_property['id']; ?>" class="btn">view boarding house</a>
-               <input type="submit" value="send enquiry" name="send" class="btn">
+               
             </div>
          </div>
       </form>

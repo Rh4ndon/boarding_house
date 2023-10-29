@@ -29,7 +29,7 @@ include 'components/save_send.php';
 </head>
 <body>
    
-<?php include 'components/user_header.php'; ?>
+<?php include 'components/home_header.php'; ?>
 
 <div id="filter-btn" class="fas fa-filter"></div>
 

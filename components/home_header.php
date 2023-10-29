@@ -6,9 +6,7 @@
       <section class="flex">
          <a href="home.php" class="logo"><i class="fas fa-house"></i>Boarding House Mapping and Reservation System</a>
 
-         <ul>
-            <li><a href="post_property.php">add boarding house<i class="fas fa-paper-plane"></i></a></li>
-         </ul>
+         
       </section>
    </nav>
 
@@ -18,10 +16,12 @@
 
          <div class="menu">
             <ul>
+               
                <li><a href="#">options<i class="fas fa-angle-down"></i></a>
                   <ul>
-                     <li><a href="a_search_renter.php">filter search</a></li>
-                     <li><a href="a_listings_renter.php">all listed boarding house</a></li>
+                     <li><a href="dashboard_renter.php">dashboard</a></li>
+                     <li><a href="search.php">filter search</a></li>
+                     <li><a href="listings.php">all listed boarding house</a></li>
                   </ul>
                </li>
                <li><a href="#">help<i class="fas fa-angle-down"></i></a>
@@ -31,7 +31,7 @@
                   </ul>
                   <li><a href="#">Listed Boarding House Map<i class="fas fa-angle-down"></i></a>
                   <ul>
-                     <li><a href="a_map_renter.php">map and route</a></li>
+                     <li><a href="map.php">map and route</a></li>
                   </ul>
                </li>
                </li>
@@ -42,11 +42,13 @@
             <li><a href="saved.php">saved <i class="far fa-heart"></i></a></li>
             <li><a href="#">account <i class="fas fa-angle-down"></i></a>
                <ul>
-                  <li><a href="login.php">login now</a></li>
                   <li><a href="register.php">register new</a></li>
                   <?php if($user_id != ''){ ?>
                   <li><a href="update.php">update profile</a></li>
                   <li><a href="components/user_logout.php" onclick="return confirm('logout from this website?');">logout</a>
+                  <?php }else {?>
+                  <li><a href="login.php">login now</a></li>
+
                   <?php } ?></li>
                </ul>
             </li>

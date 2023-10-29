@@ -41,7 +41,7 @@ if(isset($_POST['submit'])){
          
             if($verify_users->rowCount() > 0){
                setcookie('user_id', $row['id'], time() + 60*60*24*30, '/');
-               header('location:a_map_renter.php');
+               header('location:dashboard_renter.php');
             }else{
                $error_msg[] = 'something went wrong!';
             }
@@ -71,7 +71,7 @@ if(isset($_POST['submit'])){
 </head>
 <body>
    
-<?php include 'components/renter_header.php'; ?>
+<?php include 'components/home_header.php'; ?>
 
 <!-- register section starts  -->
 

@@ -30,7 +30,7 @@ include 'components/save_send.php';
 </head>
 <body>
    
-<?php include 'components/user_header.php'; ?>
+<?php include 'components/home_header.php'; ?>
 
 <section class="listings">
 
