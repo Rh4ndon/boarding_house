@@ -33,7 +33,7 @@ if(isset($_POST['send_payment'])){
 
    $payment_id = $_POST['payment_id'];
    
-
+   $amount = $_POST['amount'];
 
    
 
@@ -54,6 +54,11 @@ if(isset($_POST['send_payment'])){
 
       $update_payment = $conn->prepare("UPDATE `payments` SET img_src = ? WHERE id = ?");
       $update_payment->execute([$location, $payment_id]);
+
+      $update_payment = $conn->prepare("UPDATE `payments` SET amount = ? WHERE id = ?");
+      $update_payment->execute([$amount, $payment_id]);
+
+      
       $success_msg[] = 'payment request sent successfully!';
    }else{
       $warning_msg[] = 'payment already sent!';
@@ -177,6 +182,11 @@ if(isset($_POST['send_payment'])){
                   <p><i class="fas fa-trowel"></i><span><?= $fetch_property['status']; ?></span></p>
                </div>
 
+               <div class="flex-btn">
+               <input type="number" name="amount" maxlength="11" step="1" placeholder="enter Php amount" class="box" max="99999" min="1">
+               
+                  
+               </div>
                <div class="flex-btn">
                <input type="file" name="image" class="input" accept="image/*">
                <input type="submit" value="send payment" class="btn" name="send_payment">

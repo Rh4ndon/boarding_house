@@ -76,6 +76,11 @@ if(isset($_COOKIE['user_id'])){
       <a href="approved.php" class="btn">Approved Renters</a>
       </div>
       
+      <div class="box">
+      <h3>Payments</h3>
+      <p>list of payments</p>
+      <a href="payments_list.php" class="btn">View Renter's Payments</a>
+      </div>
 
     
 

@@ -46,8 +46,8 @@ if(isset($_POST['payment'])){
    if(($send_payment->rowCount() > 0)){
       $warning_msg[] = 'payment request already sent!';
    }else{
-      $send_request = $conn->prepare("INSERT INTO `payments`(id, property_id, renter, owner, img_src, date_request) VALUES(?,?,?,?,?,?)");
-      $send_request->execute([$id, $property, $renter, $owner, '0', $date]);
+      $send_request = $conn->prepare("INSERT INTO `payments`(id, property_id, renter, owner, amount, img_src, date_request) VALUES(?,?,?,?,?,?,?)");
+      $send_request->execute([$id, $property, $renter, $owner, '', '0', $date]);
       $success_msg[] = 'payment request sent successfully!';
    }
 
@@ -67,11 +67,17 @@ if(isset($_POST['approve'])){
    $property = $_POST['property'];
    $property = filter_var($property, FILTER_SANITIZE_STRING);
 
+   $location = $_POST['src'];
+   $amount = $_POST['amount'];
+
    $delete_id = $_POST['request_id'];
    $delete_pay_id = $_POST['pay'];
 
    $send_payment = $conn->prepare("SELECT * FROM `approve` WHERE property_id = ? AND renter = ? AND owner = ?");
    $send_payment->execute([$property, $renter, $owner]);
+
+   date_default_timezone_set('Asia/Manila');
+	$date = date('m-d-y');
 
    if(($send_payment->rowCount() > 0)){
       
@@ -79,6 +85,9 @@ if(isset($_POST['approve'])){
    }else{
       $send_request = $conn->prepare("INSERT INTO `approve`(id, property_id, renter, owner, ratings) VALUES(?,?,?,?,?)");
       $send_request->execute([$id, $property, $renter, $owner, 'none yet!']);
+
+      $send_pay = $conn->prepare("INSERT INTO `renters_payment`(id, property_id, renter, owner, amount, proof, date_of, remarks) VALUES(?,?,?,?,?,?,?,?)");
+      $send_pay->execute([$id, $property, $renter, $owner, $amount, $location, $date, 'payment received']);
 
       $delete_request = $conn->prepare("DELETE FROM `requests` WHERE id = ?");
       $delete_request->execute([$delete_id]);
@@ -170,8 +179,10 @@ if(isset($_POST['approve'])){
    <div class="box">
    <p>Proof of Payment</p>
    <img src="<?= $fetch_payment['img_src']; ?>" alt="">
-
+   <p>Amount: <?= $fetch_payment['amount']; ?></p>
    <input type="hidden" name="pay" value="<?= $fetch_payment['id']; ?>">
+   <input type="hidden" name="amount" value="<?= $fetch_payment['amount']; ?>">
+   <input type="hidden" name="src" value="<?= $fetch_payment['img_src']; ?>">
    </box>
    
    </form>

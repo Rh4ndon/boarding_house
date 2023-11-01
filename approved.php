@@ -40,6 +40,20 @@ if(isset($_POST['receive'])){
 
 }
 
+
+if(isset($_POST['view'])){
+
+   session_start();
+
+   $_SESSION['rent'] = $_POST['renter'];
+   $_SESSION['prop'] = $_POST['property'];
+
+  
+   echo "<script> location.href='view_payment.php'; </script>";
+   
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -90,8 +104,12 @@ if(isset($_POST['receive'])){
       <form action="" method="POST">
         
       <input type="hidden" name="approve_id" value="<?= $fetch_request['id']; ?>">
+
+      <input type="hidden" name="renter" value="<?= $fetch_request['renter']; ?>">
+      <input type="hidden" name="property" value="<?= $fetch_request['property_id']; ?>">
+
       <input type="submit" value="kick renter" class="btn" onclick="return confirm('kick this renter to house?');" name="delete">
-     
+      <input type="submit" value="view payments" class="btn" name="view">
    </div>
    </form>
 
@@ -114,26 +132,7 @@ if(isset($_POST['receive'])){
    ?>
    
 
-   <?php
-
-$select_payment = $conn->prepare("SELECT * FROM `renters_payment` WHERE renter = ? and owner = ? and property_id = ?");
-$select_payment->execute([$rent, $own, $pr_id ]);
-if($select_payment->rowCount() > 0){?>
-
-   <div class="box">
-   <?php  while($fetch_rent = $select_payment->fetch(PDO::FETCH_ASSOC))  {?>
-      <p>Proof : <img src="<?= $fetch_rent['proof']; ?>" alt=""></p>
-      <p>Amount : Php <span><?= $fetch_rent['amount']; ?></span></p>
-      <p>Date : <span><?= $fetch_rent['date_of']; ?></span></p>
-      <p>Remarks : <span><?= $fetch_rent['remarks']; ?></span></p>
-      
-      <form action="" method="POST">
-      <input type="hidden" name="pay_id" value="<?= $fetch_rent['id']; ?>">
-      <input type="submit" value="Receive Payment" class="btn" onclick="return confirm('Confirm Receive?');" name="receive">
-      </form>
-   
-
-   <?php }}?>
+ 
 
    </div>
    </div>
