@@ -44,7 +44,7 @@
                <ul>
                   <li><a href="register.php">register new</a></li>
                   <?php if($user_id != ''){ ?>
-                  <li><a href="update.php">update profile</a></li>
+                  <li><a href="update_renter.php">update profile</a></li>
                   <li><a href="components/user_logout.php" onclick="return confirm('logout from this website?');">logout</a>
                   <?php }else {?>
                   <li><a href="login.php">login now</a></li>
