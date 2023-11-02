@@ -161,6 +161,23 @@ if(isset($_POST['h_search'])){
                <p><i class="fas fa-tag"></i><span><?= $fetch_property['offer']; ?></span></p>
                <p><i class="fas fa-bed"></i><span><?= $fetch_property['rooms']; ?> rooms</span></p>
                <p><i class="fas fa-trowel"></i><span><?= $fetch_property['status']; ?></span></p>
+               <?php
+            $select_ratings = $conn->prepare("SELECT * FROM `approve` WHERE property_id = ?");
+            $select_ratings->execute([$fetch_property['id']]);
+            while($fetch_ratings = $select_ratings->fetch(PDO::FETCH_ASSOC)){ 
+            $renter_ratings = $conn->prepare("SELECT * FROM `renters` WHERE id = ?");
+            $renter_ratings->execute([$fetch_ratings['renter']]);
+            $fetch_renters = $renter_ratings->fetch(PDO::FETCH_ASSOC);
+            
+            if($fetch_ratings['ratings'] != 'none yet!'){ ?>
+
+            <p class="location"><?= $fetch_renters['name']; ?> rates; <span><?= $fetch_ratings['ratings']; ?> out of 5</span></p>
+           
+            
+
+
+            
+            <?php }  } ?>
             </div>
             <div class="flex-btn">
                <a href="view_property.php?get_id=<?= $fetch_property['id']; ?>" class="btn">view property</a>

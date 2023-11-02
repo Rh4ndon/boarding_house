@@ -119,6 +119,29 @@ include 'components/save_send.php';
       </div>
       <h3 class="title">description</h3>
       <p class="description"><?= $fetch_property['description']; ?></p>
+      <h3 class="title">ratings</h3>
+      <?php
+            $select_ratings = $conn->prepare("SELECT * FROM `approve` WHERE property_id = ?");
+            $select_ratings->execute([$fetch_property['id']]);
+            while($fetch_ratings = $select_ratings->fetch(PDO::FETCH_ASSOC)){ 
+            $renter_ratings = $conn->prepare("SELECT * FROM `renters` WHERE id = ?");
+            $renter_ratings->execute([$fetch_ratings['renter']]);
+            $fetch_renters = $renter_ratings->fetch(PDO::FETCH_ASSOC);
+            
+            if($fetch_ratings['ratings'] != 'none yet!'){ ?>
+
+            <p class="description"><?= $fetch_renters['name']; ?> rates; <span><?= $fetch_ratings['ratings']; ?> out of 5</span></p>
+           
+            
+
+
+            
+            <?php } else { ?>
+
+            <p class="description"><span> <?= $fetch_renters['name']; ?> didn't give any rate yet </span></p>
+
+            <?php }  } ?>
+      
       <form action="" method="post" class="flex-btn">
          <input type="hidden" name="property_id" value="<?= $property_id; ?>">
          <?php

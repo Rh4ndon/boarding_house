@@ -107,6 +107,26 @@ include 'components/save_send.php';
             <div class="price"><i class="fa-solid fa-peso-sign"></i><span><?= $fetch_property['price']; ?> per room</span></div>
             <h3 class="name"><?= $fetch_property['property_name']; ?></h3>
             <p class="location"><i class="fas fa-map-marker-alt"></i><span><?= $fetch_property['address']; ?></span></p>
+            <?php
+            $select_ratings = $conn->prepare("SELECT * FROM `approve` WHERE property_id = ?");
+            $select_ratings->execute([$fetch_property['id']]);
+            while($fetch_ratings = $select_ratings->fetch(PDO::FETCH_ASSOC)){ 
+            $renter_ratings = $conn->prepare("SELECT * FROM `renters` WHERE id = ?");
+            $renter_ratings->execute([$fetch_ratings['renter']]);
+            $fetch_renters = $renter_ratings->fetch(PDO::FETCH_ASSOC);
+
+            if($fetch_ratings['ratings'] != 'none yet!'){ ?>
+
+            <p class="location"><?= $fetch_renters['name']; ?> rates; <span><?= $fetch_ratings['ratings']; ?> out of 5</span></p>
+           
+            
+
+
+            
+            <?php }  } ?>
+
+            
+            
             <div class="flex">
                <p><i class="fas fa-house"></i><span><?= $fetch_property['type']; ?></span></p>
                <p><i class="fas fa-tag"></i><span><?= $fetch_property['offer']; ?></span></p>
