@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 29, 2023 at 04:27 AM
+-- Generation Time: Nov 02, 2023 at 05:12 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -61,7 +61,27 @@ CREATE TABLE IF NOT EXISTS `approve` (
 --
 
 INSERT INTO `approve` (`id`, `property_id`, `renter`, `owner`, `ratings`) VALUES
-('Wm6v2VhduaxfgM1ncvYs', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', '5');
+('0Dl6QhssqcEWf79tvWXP', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', 'none yet!');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bir`
+--
+
+DROP TABLE IF EXISTS `bir`;
+CREATE TABLE IF NOT EXISTS `bir` (
+  `id` varchar(50) NOT NULL,
+  `owner` varchar(50) NOT NULL,
+  `img_src` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `bir`
+--
+
+INSERT INTO `bir` (`id`, `owner`, `img_src`) VALUES
+('YdhSRh32PnUl1wMeoaBw', 'fKGM7HUgKqacGCfqRTmZ', 'uploaded_files/Screenshot 2023-11-02 124448.png');
 
 -- --------------------------------------------------------
 
@@ -94,13 +114,14 @@ INSERT INTO `messages` (`id`, `name`, `email`, `number`, `message`) VALUES
 
 DROP TABLE IF EXISTS `payments`;
 CREATE TABLE IF NOT EXISTS `payments` (
-  `id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `property_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `renter` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `owner` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `img_src` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `date_request` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` varchar(50) NOT NULL,
+  `property_id` varchar(50) NOT NULL,
+  `renter` varchar(50) NOT NULL,
+  `owner` varchar(50) NOT NULL,
+  `amount` varchar(50) NOT NULL,
+  `img_src` varchar(50) NOT NULL,
+  `date_request` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -191,7 +212,9 @@ CREATE TABLE IF NOT EXISTS `renters_payment` (
 INSERT INTO `renters_payment` (`id`, `property_id`, `renter`, `owner`, `amount`, `proof`, `date_of`, `remarks`) VALUES
 ('Dit53Wih8UP6G6N6hiqc', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', '', 'uploaded_files/Screenshot 2023-10-29 104700.png', '10-29-23', 'payment received'),
 ('xjrdrx20QweHoOXOnFiz', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', '', 'uploaded_files/Screenshot 2023-10-29 104700.png', '10-29-23', 'payment received'),
-('voAD1XsMtIUiFFBK5RSG', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', '1000', 'uploaded_files/Screenshot 2023-10-29 104700.png', '10-29-23', 'payment received');
+('voAD1XsMtIUiFFBK5RSG', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', '1000', 'uploaded_files/Screenshot 2023-10-29 104700.png', '10-29-23', 'payment received'),
+('NqRGJ5H6rMwyFVdhQeXS', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', '1000', 'uploaded_files/Screenshot 2023-10-29 104700.png', '10-29-23', 'payment received'),
+('0Dl6QhssqcEWf79tvWXP', 'JXpm4n6hpMlOZbl9SfAH', '0Qk9wgxOEenKMQ4peDQP', 'fKGM7HUgKqacGCfqRTmZ', '1000', 'uploaded_files/Screenshot 2023-10-29 051400.png', '10-29-23', 'payment received');
 
 -- --------------------------------------------------------
 
@@ -233,15 +256,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(50) NOT NULL,
   `number` varchar(10) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) NOT NULL,
+  `remarks` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `number`, `email`, `password`) VALUES
-('fKGM7HUgKqacGCfqRTmZ', 'Sample', '0912345678', 'example@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b');
+INSERT INTO `users` (`id`, `name`, `number`, `email`, `password`, `remarks`) VALUES
+('fKGM7HUgKqacGCfqRTmZ', 'Sample', '0912345678', 'example@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

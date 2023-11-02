@@ -25,7 +25,12 @@ if(isset($_POST['submit'])){
 
    if($select_users->rowCount() > 0){
       setcookie('user_id', $row['id'], time() + 60*60*24*30, '/');
-      header('location:dashboard.php');
+      if($row['remarks']==0 || $row['remarks']==2 ){
+         header('location:waiting_page.php');
+      }else{
+         header('location:dashboard.php');
+      }
+      
    }else if ($select_renters->rowCount() > 0){
       setcookie('user_id', $row_renters['id'], time() + 60*60*24*30, '/');
       header('location:dashboard_renter.php');

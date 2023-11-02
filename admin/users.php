@@ -55,6 +55,21 @@ if(isset($_POST['delete'])){
 
 }
 
+
+
+if(isset($_POST['view'])){
+
+   session_start();
+
+   $_SESSION['doc'] = $_POST['doc_id'];
+   
+
+  
+   echo "<script> location.href='view_bir.php'; </script>";
+   
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -112,9 +127,24 @@ if(isset($_POST['delete'])){
       <p>name : <span><?= $fetch_users['name']; ?></span></p>
       <p>number : <a href="tel:<?= $fetch_users['number']; ?>"><?= $fetch_users['number']; ?></a></p>
       <p>email : <a href="mailto:<?= $fetch_users['email']; ?>"><?= $fetch_users['email']; ?></a></p>
-      <p>properties listed : <span><?= $total_properties; ?></span></p>
+
+      <?php if($fetch_users['remarks']==0){?>
+
+         <p>account status :<span>pending approval</span></p>
+
+      <?php }else if ($fetch_users['remarks']==2) {?>
+         <p>account status :<span>you refuse to approve application</span></p>
+      <?php }else {?>
+         <p>account status :<span>approved</span></p>
+      <?php }?>
+      
+     
+      <p> properties listed: <span><?= $total_properties; ?></span></p>
+      
       <form action="" method="POST">
          <input type="hidden" name="delete_id" value="<?= $fetch_users['id']; ?>">
+         <input type="hidden" name="doc_id" value="<?= $fetch_users['id']; ?>">
+         <input type="submit" value="view BIR" name="view" class="btn">
          <input type="submit" value="delete user" onclick="return confirm('delete this user?');" name="delete" class="delete-btn">
       </form>
    </div>

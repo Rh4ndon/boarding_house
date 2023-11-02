@@ -31,8 +31,8 @@ if(isset($_POST['submit'])){
       if($pass != $c_pass){
          $warning_msg[] = 'Password not matched!';
       }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(id, name, number, email, password) VALUES(?,?,?,?,?)");
-         $insert_user->execute([$id, $name, $number, $email, $c_pass]);
+         $insert_user = $conn->prepare("INSERT INTO `users`(id, name, number, email, password, remarks) VALUES(?,?,?,?,?,?)");
+         $insert_user->execute([$id, $name, $number, $email, $c_pass, '0']);
          
          if($insert_user){
             $verify_users = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ? LIMIT 1");
@@ -41,7 +41,7 @@ if(isset($_POST['submit'])){
          
             if($verify_users->rowCount() > 0){
                setcookie('user_id', $row['id'], time() + 60*60*24*30, '/');
-               header('location:home.php');
+               header('location:waiting_page.php');
             }else{
                $error_msg[] = 'something went wrong!';
             }
