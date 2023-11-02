@@ -24,7 +24,7 @@ if(isset($_COOKIE['user_id'])){
 </head>
 <body>
    
-<?php include 'components/user_header.php'; ?>
+<?php include 'components/home_header.php'; ?>
 
 <!-- register section starts  -->
 
