@@ -28,6 +28,23 @@ include 'components/save_send.php';
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+   <style>
+    @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+    
+        .container{
+        display: flex;
+        flex-direction: column;
+
+        }
+    
+    
+    
+    }
+
+
+
+
+   </style>
 
 </head>
 <body>
