@@ -1,0 +1,23 @@
+Owner
+	Inventory
+	Sales
+	Customer
+	Supplier
+	Transaction
+	Reports
+
+
+Cashier
+	Inventory
+	Sales
+	Customer
+
+
+Stock Assistance Side
+	Inventory
+	Supplier
+
+
+
+
+

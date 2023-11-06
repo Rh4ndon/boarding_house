@@ -14,6 +14,11 @@ include 'components/save_send.php';
 
 if(isset($_POST['upload'])){
 
+   $accept = ["jpg", "png", "gif", "webp"];
+   $ext = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+   if (in_array($ext, $accept)) {
+       
+
    $id = create_unique_id();
    $owner = $_POST['owner'];
 
@@ -27,6 +32,9 @@ if(isset($_POST['upload'])){
    $insert_bir = $conn->prepare("INSERT INTO `bir`(id, owner, img_src) VALUES(?,?,?)");
    $insert_bir->execute([$id, $owner, $location]);
    $success_msg[] = 'document uploaded successfully!';
+   }else{
+      $warning_msg[] = 'document is not an image!';
+   }
 }
 
 ?>
